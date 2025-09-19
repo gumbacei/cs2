@@ -1,0 +1,21 @@
+name: CS2 Server
+
+on:
+  workflow_dispatch: # تشغيل يدوي
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup CS2 Server
+        run: |
+          chmod +x install_cs2.sh
+          ./install_cs2.sh
+
+      - name: Run Server
+        run: |
+          cd ~/steamcmd/steamapps/common/Counter-Strike\ Global\ Offensive\ -\ Dedicated\ Server
+          ./srcds_run -game csgo -console -usercon +game_type 0 +game_mode 1 +map de_dust2 -port 27015
